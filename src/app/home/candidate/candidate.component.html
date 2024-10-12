@@ -1,0 +1,201 @@
+<div class="container">
+  <p-toast></p-toast>
+
+<div class="card m-5">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New Candidate"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2 m-2"
+        (click)="openNew()"
+      ></button>
+       </ng-template>
+
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        label="Export"
+        icon="pi pi-upload"
+        class="p-button-help"
+        (click)="exportToExcel()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="candidates"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'skills', 'designation']"
+    [(selection)]="selectedCandidates"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [showCurrentPageReport]="true"
+  >
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0 text-center">Candidates List</h5>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+        </th>
+        <th pSortableColumn="name">
+          Name <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="qualification">
+          Qualification <p-sortIcon field="qualification"></p-sortIcon>
+        </th>
+        <th pSortableColumn="skills">
+          Skills <p-sortIcon field="skills"></p-sortIcon>
+        </th>
+        <th pSortableColumn="designation">
+          Designation <p-sortIcon field="designation"></p-sortIcon>
+        </th>
+        <th pSortableColumn="dob">
+          Date Of Birth <p-sortIcon field="dob"></p-sortIcon>
+        </th>
+        <th pSortableColumn="age">
+          Age <p-sortIcon field="age"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-candidate>
+      <tr>
+        <td>
+        </td>
+        <td>{{ candidate.name }}</td>
+        <td>{{ candidate.qualification }}</td>
+        <td>{{ candidate.skills }}</td>
+        <td>{{ candidate.designation }}</td>
+        <td>{{ candidate.dob }}</td>
+        <td>{{ candidate.age }}</td>
+        
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-success p-mr-2 me-3"
+            (click)="editCandidate(candidate)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-warning"
+            (click)="deleteCandidate(candidate)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{ candidates ? candidates.length : 0 }} candidates.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="candidateDialog"
+  [style]="{ width: '450px' }"
+  header="Candidate Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        [(ngModel)]="candidate.name"
+        required
+      />
+      <small class="p-invalid" *ngIf="submitted && !candidate.name"
+        >Name is required.</small
+      >
+    </div>
+    <div class="p-field">
+        <label for="touchui">Date of Birth</label>
+        <p-calendar [(ngModel)]="candidate.dob" dateFormat="dd/mm/yy" inputId="spanish" ></p-calendar>
+    </div>
+    <div class="p-field">
+      <label for="qualification">Qualification</label>
+      
+      <p-dropdown [options]="education" [(ngModel)]="candidate.qualification"  optionLabel="name"></p-dropdown>
+        
+    </div>
+    <div class="p-field">
+      <label for="skills">Skills</label>
+      <input
+        type="text"
+        pInputText
+        id="skills"
+        [(ngModel)]="candidate.skills"
+        required
+
+      />
+    </div>
+    <div class="p-field">
+      <label for="location">Location</label>
+      <input
+        type="text"
+        pInputText
+        id="location"
+        [(ngModel)]="candidate.location"
+        required
+      />
+    </div>
+    <div class="p-field">
+      <label for="yearOfExp">Years of Experience</label>
+      <p-inputNumber
+        [(ngModel)]="candidate.yearOfExp"
+        id="yearOfExp"
+      ></p-inputNumber>
+    </div>
+    <div class="p-field">
+      <label for="designation">Designation</label>
+      <input
+        type="text"
+        pInputText
+        id="designation"
+        [(ngModel)]="candidate.designation"
+        required
+      />
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text"
+      (click)="saveCandidate()"
+    ></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+
+</div>

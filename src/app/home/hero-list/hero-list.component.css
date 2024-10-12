@@ -1,0 +1,149 @@
+ 
+.card1 {
+    width: 300px;
+    height: fit-content;
+    background: rgb(255, 255, 255);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.068);
+  }
+  .card-content {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .card-heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(27, 27, 27);
+  }
+  .card-description {
+    font-weight: 400;
+    color: rgb(32, 31, 31);
+  }
+  .card-button-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .card-button {
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .primary {
+    background-color: rgb(255, 114, 109);
+    color: white;
+  }
+  .primary:hover {
+    background-color: rgb(255, 73, 66);
+  }
+  .secondary {
+    background-color: #ddd;
+  }
+  .secondary:hover {
+    background-color: rgb(197, 197, 197);
+  }
+  .exit-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+  .exit-button:hover svg {
+    fill: black;
+  }
+  .exit-button svg {
+    fill: rgb(175, 175, 175);
+  }
+  
+  
+  /* Responsive adjustments if needed */
+  @media screen and (max-width: 768px) {
+    .card1 {
+      width: 90%;
+      padding:20px
+    }}
+  
+table{
+  font-size: 1.5rem;
+  border: 2px solid black;
+}
+
+
+.exit-button {
+  background: transparent; /* Remove default button background */
+  border: none;           /* Remove border */
+  cursor: pointer;        /* Change cursor to pointer */
+  font-size: 24px;       /* Adjust icon size */
+}
+
+.exit-button:hover {
+  color: #dc3545; /* Change color on hover (Bootstrap red) */
+}
+
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Card */
+.modal-card {
+  background-color: white;
+  border-radius: 8px;
+  max-width: 700px; /* Control the modal's width */
+  width: 75%;
+  height: auto;
+  padding: 20px;
+}
+
+/* Input Fields Column: Center content vertically */
+.col-6.d-flex.flex-column {
+  padding: 0 20px; /* Reduce side padding to minimize empty space */
+}
+
+/* Form Container */
+.form-container {
+  max-width: 300px; /* Adjust width of the input fields area */
+  width: 75%;
+  margin: 0 auto; /* Center the form container */
+}
+
+/* Adjust Input Field Styles */
+.p-float-label input {
+  width: 100%;
+  padding: 10px;
+}
+
+/* Adjust Button Styles */
+.mt-5 .p-button1 {
+  width: 45%; /* Adjust button width to be more compact */
+}

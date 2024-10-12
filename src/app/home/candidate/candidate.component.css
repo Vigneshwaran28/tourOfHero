@@ -1,0 +1,7 @@
+::ng-deep .p-calendar {
+    width: auto; /* Adjust the input field width */
+}
+
+::ng-deep .p-calendar .p-datepicker {
+    width: 200px; /* Set the desired width for the calendar popup */
+}

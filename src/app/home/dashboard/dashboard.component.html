@@ -1,0 +1,116 @@
+<!-- Dashboard -->
+<div class="m-5" *ngIf="dashboard">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="text-center m-4 flex-grow-1">Dashboard</h2>
+      <span class="p-input-icon-left m-1">
+        <i class="pi pi-search"></i>
+        <input pInputText type="text" [(ngModel)]="search" placeholder="Search..." (input)="onSearchTextChanged()" />
+      </span>
+      <button type="button" pButton pRipple icon="pi pi-sort" label="Sort" (click)="menu.toggle($event)" class="mx-auto"></button>
+<p-menu #menu [popup]="true" [model]="items"></p-menu>
+    </div>
+
+    <div class="row">
+      <div
+        class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+        *ngFor="let hero of filteredHeroes"
+        (click)="onSelect(hero)"
+      >
+        <p-card header="{{ hero.name | uppercase }}" subheader="" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
+          <ng-template pTemplate="header">
+            <img alt="{{ hero.name }}" src="{{ hero.imageUrl }}" class="imgCard img-fluid">
+          </ng-template>
+          <p class="truncated-description">
+            {{hero.description}}
+          </p>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Selected Hero Details -->
+<div class="container mt-5" *ngIf="selectedHero">
+  <div class="p-3">
+    <div class="row justify-content-center">
+      <!-- Left column for image -->
+      <div class="col-12 col-md-4 d-flex flex-column align-items-center">
+        <p-card header="{{ selectedHero.name }}"  subheader="{{ selectedHero.description }}" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
+          <ng-template pTemplate="header">
+            <img
+              [src]="selectedHero.imageUrl"
+              alt="{{ selectedHero.name }}"
+              class="img-fluid fixed-size1"
+            />
+          </ng-template>
+        </p-card>
+      </div>
+      
+      <!-- Right column for input fields -->
+      <div class="col-12 col-md-6 d-flex flex-column">
+        <p-card header="Edit {{ selectedHero.name }}" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
+          <ng-template pTemplate="header">
+            <h3 class="text-center mb-4">Edit {{ selectedHero.name }}</h3>
+          </ng-template>
+          
+          <!-- Input fields -->
+          <div class="mb-3">
+            <label for="hero-name" class="form-label">Name:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="hero-name"
+              placeholder="Write here..."
+              [(ngModel)]="selectedHero.name"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="hero-image" class="form-label">Image URL:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="hero-image"
+              placeholder="Write here..."
+              [(ngModel)]="selectedHero.imageUrl"
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="hero-description" class="form-label">Description:</label>
+            <textarea
+              class="form-control"
+              id="hero-description"
+              rows="3"
+              placeholder="Write here..."
+              [(ngModel)]="selectedHero.description"
+            ></textarea>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex justify-content-between mt-3">
+            <button class="btn btn-dark text-light" type="button" (click)="backToDash()">Back</button>
+            <button class="btn btn-danger text-light" type="button" (click)="alertModelDispaly(selectedHero)">Delete</button>
+            <button class="btn btn-success text-light" type="button" (click)="onSave(selectedHero)">Save</button>
+          </div>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Confirmation Modal -->
+<div class="modal-overlay" *ngIf="visible" tabindex="-1" role="dialog">
+  <p-card header="Delete {{ selectedHero?.name }}?" subheader="Are you sure?" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <ng-template pTemplate="header"></ng-template>
+    <ng-template pTemplate="footer">
+      <div class="card-button-wrapper">
+        <button class="card-button secondary" (click)="visible = false">Cancel</button>
+        <button class="card-button primary" (click)="removeName(selectedHero)">Delete</button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

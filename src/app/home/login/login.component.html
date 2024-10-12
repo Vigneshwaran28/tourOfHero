@@ -1,0 +1,52 @@
+<section class="CLogin-Sec">
+    <div class="container p-5" style="height: 100vh;">
+      <div class="row h-100 align-items-center justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="card border shadow-lg p-5 text-center rounded">
+            <label class="h3 text-dark mt-3">Login</label>
+  
+            <form (ngSubmit)="login()" method="post">
+              <!-- Username input -->
+              <div class="mt-3">
+                <input
+                  placeholder="Email address"
+                  class="form-control w-100"
+                  name="text"
+                  type="email"
+                  [(ngModel)]="username"
+                  required
+                />
+              </div>
+  
+              <!-- Password input -->
+              <div class="mt-4">
+                <input
+                  placeholder="Password"
+                  class="form-control w-100"
+                  [(ngModel)]="password"
+                  name="password"
+                  type="password"
+                  required
+                />
+              </div>
+  
+              <!-- Login button -->
+              <div class="mt-4">
+                <button class="btn w-50 text-dark">
+                  Login
+                </button>
+              </div>
+              <p class="p mt-3">Don't have an account? <span class="span" (click)="signUp()">
+                Sign Up
+              </span>
+              <!-- Error message -->
+              <div *ngIf="loginError" class="mt-3 alert alert-danger">
+                {{ loginError }}
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
