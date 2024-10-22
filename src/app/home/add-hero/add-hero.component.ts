@@ -10,8 +10,9 @@ import { Router, RouterStateSnapshot } from '@angular/router';
 export class AddHeroComponent implements OnInit {
 public heroImage: any;  // store the hero image
 public heroName: any;   // store the hero name
+public heroDescription:any;
+
 public HEROES:any;      // store the hero in the array format
-public heroDescription:string='';
 // constructor for initializing this
   constructor( private mainService: MainService, private router: Router ) { }
 
@@ -28,12 +29,12 @@ public heroDescription:string='';
     const heroDescription = this.heroDescription;
   
     // Ensure that both values are correctly assigned before sending
-    if (!heroName || !heroImage) {
-      console.error("Hero name and image are required");
+    if (!heroName || !heroImage || !heroDescription) {
+      console.error("Hero name, image and description are required");
       return;
     }
   
-    this.mainService.addListName(heroName, heroImage,heroDescription).subscribe(
+    this.mainService.addListName(heroName, heroImage, heroDescription).subscribe(
       response => {
         console.log("Hero added successfully:", response);
         this.router.navigate(['home']);

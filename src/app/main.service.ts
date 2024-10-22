@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class MainService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/login/';
-  private apiHeroList = 'http://127.0.0.1:8000/api/herolist/';
-  private baseUrl = 'http://127.0.0.1:8000/api/';
+  private apiUrl = 'https://amnotascientist.pythonanywhere.com/api/login/';
+  private apiHeroList = 'https://amnotascientist.pythonanywhere.com/api/herolist/';
+  private baseUrl = 'https://amnotascientist.pythonanywhere.com/api/';
   public HEROES: any;
   public httpHeader = new HttpHeaders({'Content-type': 'application/json'});
 
@@ -77,7 +77,7 @@ export class MainService {
 
   // Add hero
   addListName(name: string, image: string, heroDescription: string): Observable<any> {
-    let newHero = { name, imageUrl: image,heroDescription };
+    let newHero = { name, imageUrl: image,description:heroDescription };
     const url = `${this.baseUrl}addhero/`;
     return this.http.post(url, newHero, { headers: this.httpHeader });
   }
