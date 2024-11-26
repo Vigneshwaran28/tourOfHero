@@ -25,3 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+
+
+
+
+//////
+after clone don't forget to use -> npm install or npm i
+
+versions
+Angular version v14 //ng version
+node version 16.13.1  //node --version
+primeNg version 14    
+
