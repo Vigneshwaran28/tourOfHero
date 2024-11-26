@@ -105,3 +105,6 @@ span {
     width: 50%;  /* Button takes up 50% of width on large screens */
   }
 }
+.mt-3{
+  cursor: pointer!important;
+}
