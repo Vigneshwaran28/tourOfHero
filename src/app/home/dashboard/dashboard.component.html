@@ -8,7 +8,7 @@
         <input pInputText type="text" [(ngModel)]="search" placeholder="Search..." (input)="onSearchTextChanged()" />
       </span>
       <button type="button" pButton pRipple icon="pi pi-sort" label="Sort" (click)="menu.toggle($event)" class="mx-auto"></button>
-<p-menu #menu [popup]="true" [model]="items"></p-menu>
+      <p-menu #menu [popup]="true" [model]="items"></p-menu>
     </div>
 
     <div class="row">
@@ -22,7 +22,7 @@
             <img alt="{{ hero.name }}" src="{{ hero.imageUrl }}" class="imgCard img-fluid">
           </ng-template>
           <p class="truncated-description">
-            {{hero.description}}
+            {{ hero.description }}
           </p>
         </p-card>
       </div>
@@ -30,26 +30,30 @@
   </div>
 </div>
 
-
 <!-- Selected Hero Details -->
 <div class="container mt-5" *ngIf="selectedHero">
   <div class="p-3">
     <div class="row justify-content-center">
       <!-- Left column for image -->
       <div class="col-12 col-md-4 d-flex flex-column align-items-center">
-        <p-card header="{{ selectedHero.name }}"  subheader="{{ selectedHero.description }}" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
+        <p-card header="{{ selectedHero.name }}" subheader="{{ selectedHero.description }}" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
           <ng-template pTemplate="header">
             <img
               [src]="selectedHero.imageUrl"
               alt="{{ selectedHero.name }}"
-              class="img-fluid fixed-size1"
+              class="img-fluid fixed-size-cover"
             />
           </ng-template>
+          <ng-template pTemplate="footer"  *ngIf="isGuest">
+            <button class="btn btn-secondary mt-3" (click)="backToDash()">Close</button>
+  
+        </ng-template>
         </p-card>
+        
       </div>
       
-      <!-- Right column for input fields -->
-      <div class="col-12 col-md-6 d-flex flex-column">
+      <!-- Right column for input fields, only visible for non-guests -->
+      <div class="col-12 col-md-6 d-flex flex-column" *ngIf="!isGuest">
         <p-card header="Edit {{ selectedHero.name }}" [style]="{width: '100%'}" styleClass="shadow-5 card-equal">
           <ng-template pTemplate="header">
             <h3 class="text-center mb-4">Edit {{ selectedHero.name }}</h3>
@@ -97,10 +101,11 @@
           </div>
         </p-card>
       </div>
+
+
     </div>
   </div>
 </div>
-
 
 <!-- Delete Confirmation Modal -->
 <div class="modal-overlay" *ngIf="visible" tabindex="-1" role="dialog">

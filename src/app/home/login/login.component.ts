@@ -13,18 +13,36 @@ export class LoginComponent implements OnInit {
   public username: string = ''; // store the username from the ngModel
   public password: string = ''; // store the password from the ngModel
   public loginError: string = '';  // store the error
+  public guest = false; // for guest user it change that state
 
   constructor(private router: Router, private mainService: MainService) {}
 
   
   ngOnInit() {
     // Check if the user is already logged in
-  if (this.mainService.isLoggedIn()) {
-    const adminStatus = localStorage.getItem('admin');
-    console.log('Admin status on login:', adminStatus);  // Log to see the stored value
-    this.router.navigate(['home']);  // Redirect to home if already logged in
+    // Check if the user is already logged in or is a guest
+    if (this.mainService.isLoggedIn() || this.mainService.isGuest()) {
+      this.router.navigate(['home']);
+    }
   }
+
+  loginAsGuest() {
+    this.guest = this.mainService.loginAsGuest();  // Now it updates the guest state
+    console.log('Login as Guest!');
+   
+    // Log the navigation attempt
+    console.log('Attempting to navigate to home...');
+    
+    // Directly navigate to home after the guest login
+    this.router.navigate(['home']).then(() => {
+      console.log('Navigating to home for guest');
+    }).catch((err) => {
+      console.error('Error navigating to home:', err);
+    });
   }
+  
+  
+
 
   //login function
   login() {
@@ -32,6 +50,7 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         console.log('Login successful', response);  // Debugging the response object
         this.mainService.handleLogin(response); 
+        
         // Ensure the token exists in the response before accessing it
         if (response && response.token) {
           localStorage.setItem('token', response.token);
@@ -67,6 +86,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  //signUp page function
   signUp(){
     this.router.navigate(['register'])
   }

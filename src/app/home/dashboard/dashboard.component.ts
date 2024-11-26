@@ -24,11 +24,12 @@ export class DashboardComponent implements OnInit, CanActivate {
   public visible: boolean = false;
   public isFullDescription: boolean = false;
   public selectedHero: {
-description: any; id: number; name: string; imageUrl: string 
+      description: any; id: number; name: string; imageUrl: string 
 } | null = null;
   public id: number | undefined;
   public search: string = '';  // Search input bound variable
   public items: MenuItem[]=[];
+  public isGuest: boolean = false;
 
   
   constructor(private mainService: MainService, private router: Router) {}
@@ -36,6 +37,7 @@ description: any; id: number; name: string; imageUrl: string
   ngOnInit() {
     this.heroListApi();
  
+    this.isGuest = localStorage.getItem('guest') === 'true';
     this.items = [{
       label: 'Name',
       items: [{
@@ -81,6 +83,7 @@ description: any; id: number; name: string; imageUrl: string
   onSelect(hero: { id: number; name: string; imageUrl: string ,description:string}): void {
     this.selectedHero = { ...hero };
     this.dashboard = false;
+    // this.visible = true;
   }
 
   canActivate(): boolean {

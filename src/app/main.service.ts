@@ -13,6 +13,7 @@ export class MainService {
   private baseUrl = 'https://amnotascientist.pythonanywhere.com/api/';
   public HEROES: any;
   public httpHeader = new HttpHeaders({'Content-type': 'application/json'});
+  public guest =false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -33,6 +34,7 @@ export class MainService {
       if (response.is_staff !== undefined) {  // Check if the admin field exists
         localStorage.setItem('is_staff', response.is_staff.toString());  // Store the admin status
       }
+      localStorage.removeItem('guest'); 
       console.log('Token and admin status stored, navigating to home...');
       this.router.navigate(['home']).then(() => {
         console.log('Successfully navigated to home');
@@ -47,12 +49,17 @@ export class MainService {
   
 
   logoutService() {
-    // Remove the token from localStorage on logout
+    // Remove the token and user-related data from localStorage
     localStorage.removeItem('authToken');
     localStorage.removeItem('admin');
     localStorage.removeItem('token');
     localStorage.removeItem('is_staff');
-    this.router.navigate(['login']);
+    localStorage.removeItem('guest');
+    this.router.navigate(['login']).then(() => {
+      console.log('Logged out and redirected to login page');
+    }).catch((err) => {
+      console.error('Navigation error during logout:', err);
+    });
   }
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');  // Returns true if token exists
@@ -125,6 +132,16 @@ signUp(username:string, password:string):Observable <any>{
   let newUser={username, password,is_staff}
   const url = `${this.baseUrl}userslist/`
 return this.http.post<any>(url,newUser,{ headers: this.httpHeader } )
+}
+
+//guest login
+loginAsGuest() {
+  this.guest = true;  // Set guest flag
+  localStorage.setItem('guest', 'true');  // Store guest login in localStorage
+  return this.guest;
+}
+isGuest() {
+  return localStorage.getItem('guest') === 'true';  // Check if user is guest
 }
 
 }

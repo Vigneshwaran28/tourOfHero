@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainService } from 'src/app/main.service';
-
+ 
 @Component({
   selector: 'app-hero-list',
   templateUrl: './hero-list.component.html',
@@ -9,6 +9,7 @@ import { MainService } from 'src/app/main.service';
 export class HeroListComponent implements OnInit {
 
   HEROES: any;
+  i=0;
   selectedHero: { id: number; name: string; imageUrl: string } | null = null;
   dashboard = false;
   addName = false;
@@ -17,11 +18,12 @@ export class HeroListComponent implements OnInit {
   heroEditDiv: boolean = false;      // Edit modal visibility
   public alertModal = false;          // Alert modal visibility
   public visible: boolean = false;    // Delete modal visibility
-
+  isGuest: boolean = false; // Set this based on the user's role,
   constructor(private mainService: MainService) {}
 
   ngOnInit(): void {
     this.heroListApi();  // Fetch heroes on initialization
+    this.isGuest = localStorage.getItem('guest') === 'true';
   }
 
   // Select a hero for editing

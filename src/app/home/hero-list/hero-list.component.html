@@ -1,18 +1,17 @@
 <section class="HeroListSection">
   <div class="container mt-5">
-    <!-- <p-table *ngFor="let hero of HEROES" (click)="onSelect(hero)"> -->
     <p-table [value]="HEROES">
       <ng-template pTemplate="header">
         <tr>
           <th>Name</th>
-          <th>Edit</th>
-          <th>Delete</th>
+          <th *ngIf="!isGuest">Edit</th> <!-- Hide Edit column for guests -->
+          <th *ngIf="!isGuest">Delete</th> <!-- Hide Delete column for guests -->
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-hero>
         <tr>
           <td>{{ hero.name }}</td>
-          <td>
+          <td *ngIf="!isGuest"> <!-- Hide Edit button for guests -->
             <button
               pButton
               pRipple
@@ -22,7 +21,7 @@
               (click)="heroEdit(hero); $event.stopPropagation()"
             ></button>
           </td>
-          <td>
+          <td *ngIf="!isGuest"> <!-- Hide Delete button for guests -->
             <button
               pButton
               pRipple
@@ -41,17 +40,14 @@
 <!-- delete confirmation -->
 
 <div class="modal-overlay" *ngIf="visible" tabindex="-1" role="dialog">
- <p-card header="Delete {{ selectedHero?.name }}?" subheader="Are you sure?" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
-    <ng-template pTemplate="header">
-      
-  </ng-template>
-  <ng-template pTemplate="footer">
-    <div class="card-button-wrapper">
-      <button class="card-button secondary" (click)="visible = false">Cancel</button>
-      <button class="card-button primary" (click)="removeName(selectedHero)">Delete</button>
-    </div>
-  </ng-template>
-</p-card>
+  <p-card header="Delete {{ selectedHero?.name }}?" subheader="Are you sure?" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <ng-template pTemplate="footer">
+      <div class="card-button-wrapper">
+        <button class="card-button secondary" (click)="visible = false">Cancel</button>
+        <button class="card-button primary" (click)="removeName(selectedHero)">Delete</button>
+      </div>
+    </ng-template>
+  </p-card>
 </div>
 
 <!-- Selected Hero Details -->

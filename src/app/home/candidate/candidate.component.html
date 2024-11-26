@@ -199,3 +199,18 @@
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
 
 </div>
+
+
+
+<!-- Modal for login prompt when user is not logged in -->
+<div class="modal-overlay" *ngIf="visible" tabindex="-1" role="dialog">
+  <p-card header="Login Required" subheader="To perform this operation, you must log in" [style]="{'width': '25rem', 'margin-bottom': '2em'}">
+    <ng-template pTemplate="header"></ng-template>
+    <ng-template pTemplate="footer">
+      <div class="card-button-wrapper">
+        <button class="card-button secondary" (click)="visible = false">Cancel</button>
+        <button class="card-button primary" (click)="login()">Login</button>
+      </div>
+    </ng-template>
+  </p-card>
+</div>

@@ -1,22 +1,20 @@
-
+/* Global styles */
 .input {
-    font-family: "SF Pro";
-    /* max-width: 190px; */
-    padding: 0.875rem;
-    font-size: 1rem;
-    border: 1.5px solid #000;
-    border-radius: 0.5rem;
-    box-shadow: 2.5px 3px 0 #000;
-    outline: none;
-    transition: ease 0.25s;
-  }
-  
-  .input:focus {
-    box-shadow: 5.5px .2rem 0 black;
-  }
-  
+  font-family: "SF Pro";
+  padding: 0.875rem;
+  font-size: 1rem;
+  border: 1.5px solid #000;
+  border-radius: 0.5rem;
+  box-shadow: 2.5px 3px 0 #000;
+  outline: none;
+  transition: ease 0.25s;
+}
 
-/* From Uiverse.io by sekaiking */ 
+.input:focus {
+  box-shadow: 5.5px .2rem 0 black;
+}
+
+/* Button styles */
 button {
   background-color: white;
   color: black;
@@ -42,23 +40,68 @@ button:active {
   box-shadow: 0 0 0 0 black;
 }
 
+/* Section background */
 .CLogin-Sec {
   background-color: wheat;
- 
   background-image: url('https://images.unsplash.com/photo-1552302896-5c1349f3337d?q=80&w=1772&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-blend-mode: multiply;
-
-
 }
 
+/* Paragraph styles */
 .p {
   text-align: center;
   color: black;
   font-size: 17px;
   margin: 5px 0;
 }
-span{
+
+span {
   text-decoration: none;
   color: blue;
   cursor: pointer auto !important;
+}
+
+/* Media Queries for responsiveness */
+
+/* For small screens (phones in portrait mode) */
+@media (max-width: 576px) {
+  .CLogin-Sec .container {
+    padding: 2rem;
+  }
+  .CLogin-Sec .card {
+    padding: 1.5rem;
+  }
+  .CLogin-Sec .form-control {
+    font-size: 1rem;
+  }
+  button {
+    width: 100%;  /* Make the button full-width */
+    font-size: 16px;  /* Adjust button font size for smaller screens */
+  }
+}
+
+/* For medium screens (tablets in portrait and landscape) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .CLogin-Sec .container {
+    padding: 3rem;
+  }
+  .CLogin-Sec .card {
+    padding: 2rem;
+  }
+  button {
+    width: 100%;  /* Button takes up full width on medium screens */
+  }
+}
+
+/* For larger screens (laptops, desktops) */
+@media (min-width: 769px) {
+  .CLogin-Sec .container {
+    padding: 5rem;
+  }
+  .CLogin-Sec .card {
+    padding: 3rem;
+  }
+  button {
+    width: 50%;  /* Button takes up 50% of width on large screens */
+  }
 }

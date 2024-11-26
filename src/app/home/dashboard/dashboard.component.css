@@ -221,3 +221,11 @@
   white-space: normal;
   max-height: 4.5rem; 
 }
+
+
+.fixed-size-cover {
+  width: 100%;               /* Make the width 100% of the container */
+  height: 450px;             /* Set a fixed height */
+  object-fit: cover;         /* Ensure the image covers the area while maintaining aspect ratio */
+  object-position: center;   /* Center the image inside the container */
+}
